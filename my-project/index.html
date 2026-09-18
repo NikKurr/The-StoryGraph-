@@ -10,52 +10,54 @@
     <header>
       <h1>Трекер прочитаних книг</h1>
       <nav>
-      <!-- <a href="#add-book">Додати книгу</a> -->
+        <!-- <a href="#add-book">Додати книгу</a> -->
       </nav>
     </header>
+    <div class="layout">
+      <main>
+        <section>
+          <h2>Додати книгу</h2>
 
-    <main>
-      <section>
-        <h2>Додати книгу</h2>
+          <form>
+            <label for="title">Назва книги:</label>
+            <input type="text" id="title" />
 
-        <form>
-          <label for="title">Назва книги:</label>
-          <input type="text" id="title" />
+            <label for="author">Автор:</label>
+            <input type="text" id="author" />
 
-          <label for="author">Автор:</label>
-          <input type="text" id="author" />
+            <label for="year">Рік видання:</label>
+            <input type="number" id="year" />
 
-          <label for="year">Рік видання:</label>
-          <input type="number" id="year" />
+            <button type="submit">Додати книгу</button>
+          </form>
+        </section>
+        <section>
+          <h2>Мої книги</h2>
+          <div class="cards">
+            <article>
+              <h3>Маленький принц</h3>
+              <p>Автор: Антуан де Сент-Екзюпері</p>
+              <p>Рік видання: 1942</p>
+              <p>Статус: Прочитано</p>
+            </article>
 
-          <button type="submit">Додати книгу</button>
-        </form>
-      </section>
-      <section>
-        <h2>Мої книги</h2>
+            <article>
+              <h3>На західному фронті без змін</h3>
+              <p>Автор: Еріх Марія Ремарк</p>
+              <p>Рік видання: 1929</p>
+              <p>Статус: Прочитано</p>
+            </article>
+          </div>
+        </section>
+      </main>
 
-        <article>
-          <h3>Маленький принц</h3>
-          <p>Автор: Антуан де Сент-Екзюпері</p>
-          <p>Рік видання: 1942</p>
-          <p>Статус: Прочитано</p>
-        </article>
-
-        <article>
-          <h3>На західному фронті без змін</h3>
-          <p>Автор: Еріх Марія Ремарк</p>
-          <p>Рік видання: 1929</p>
-          <p>Статус: Прочитано</p>
-        </article>
-      </section>
-    </main>
-
-    <aside>
-      <h2>Статистика читання</h2>
-      <p>Всього книг: 2</p>
-      <p>Прочитано: 2</p>
-      <p>У процесі: 0</p>
-    </aside>
+      <aside>
+        <h2>Статистика читання</h2>
+        <p>Всього книг: 2</p>
+        <p>Прочитано: 2</p>
+        <p>У процесі: 0</p>
+      </aside>
+    </div>
 
     <footer>
       <p>Автор: Нікіта Кусенко</p>

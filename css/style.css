@@ -11,20 +11,67 @@ body {
   background: #faf6ee; 
 }
 
-header{
-    background: #6b4423;
-    padding: 24px;
-}
 
 header h1 {
     font-size: 2rem;
     color: #faf6ee; /* світлий, щоб читалось на темному фоні header */
 }
 
-main {
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    background: #6b4423;
+    padding: 24px;
+}
+
+nav{
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 600px) {
+  .cards {
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
+  }
+
+  nav {
+    flex-direction: row;
+  }
+}
+
+.layout {
   max-width: 800px;
   margin: 0 auto;
   padding: 24px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (min-width: 1024px) {
+  .cards {
+    grid-template-columns: repeat(6, minmax(140px, 1fr));
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 32px;
+    max-width: 1200px;
+    padding: 40px;
+  }
 }
 
 section {
