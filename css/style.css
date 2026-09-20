@@ -2,7 +2,13 @@
 box-sizing: border-box;
 }
 
-body {
+/* 
+   тепла «паперова» палітра й серифний шрифт, як у друкованій книзі.
+   Кремовий фон (#faf6ee) нагадує папір, а коричневі відтінки (#6b4423, #3b2a1a) палітурку й пасту ручки або ж чорнило.
+   Georgia це шрифт, котрий знайомий нам друкованими книжками, тому заголовки й текст виглядають «книжково», максимально створюючи атмосферу комфорту і бібліотеквого затишку.
+   Єдиний яскравий акцент це наша кнопка в цигляному стилі, а кольори статусів приглушені, щоб не порушувати затишну атмосферу. */
+
+   body {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif; 
   font-size: 1rem;
@@ -11,11 +17,11 @@ body {
   background: #faf6ee; 
 }
 
+h1 { font-size: 2.25rem; line-height: 1.2; }
+h2 { font-size: 1.75rem; line-height: 1.25; }
+h3 { font-size: 1.25rem; line-height: 1.3; }
 
-header h1 {
-    font-size: 2rem;
-    color: #faf6ee; /* світлий, щоб читалось на темному фоні header */
-}
+
 
 header{
     display: flex;
@@ -27,6 +33,29 @@ header{
     padding: 24px;
 }
 
+header h1 {
+  color: #faf6ee;
+}
+
+button {
+  font: inherit;
+  padding: 10px 20px;
+  background: #8c3b1f;
+  color: #faf6ee;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #6f2f18;
+}
+
+button:focus-visible {
+  outline: 3px solid #6b4423;
+  outline-offset: 2px;
+}
+
 nav{
   display: flex;
   gap: 16px;
@@ -35,15 +64,11 @@ nav{
 
 .cards {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 20px;
 }
 
 @media (min-width: 600px) {
-  .cards {
-    grid-template-columns: repeat(3, minmax(140px, 1fr));
-  }
-
   nav {
     flex-direction: row;
   }
@@ -53,6 +78,7 @@ nav{
   max-width: 800px;
   margin: 0 auto;
   padding: 24px;
+  align-items: start;
 }
 
 img {
@@ -61,10 +87,6 @@ img {
 }
 
 @media (min-width: 1024px) {
-  .cards {
-    grid-template-columns: repeat(6, minmax(140px, 1fr));
-  }
-
   .layout {
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -84,8 +106,10 @@ label {
 }
 
 input {
+  font: inherit;
   padding: 8px;
   margin-bottom: 16px;
+  background: #fffdf8;
   border: 1px solid #6b4423;
   border-radius: 4px;
   width: 100%;
@@ -95,12 +119,22 @@ aside {
   background-color: #f0e4d0;
   padding: 16px;
   border-radius: 6px;
-  margin-top: 24px;
 }
 
 footer {
   padding: 12px;
-  font-size: 0.85em;
-  color: #777;
+  font-size: 0.875rem;
+  color: #6b5a48;
   text-align: center;
+}
+
+h2, h3 {
+  color: #6b4423;
+}
+
+article {
+  background: #f0e4d0;
+  border: 1px solid #d9c8a9;
+  border-radius: 6px;
+  padding: 16px;
 }
