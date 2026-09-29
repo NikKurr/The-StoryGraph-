@@ -138,3 +138,40 @@ article {
   border-radius: 6px;
   padding: 16px;
 }
+
+.book-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+}
+.book-status::before {
+  content: "";
+  width: 12px;
+   flex-shrink: 0; 
+  height: 12px;
+  border-radius: 50%;
+  background: var(--status-color);
+}
+.book-status--planned { --status-color: #8a7a66; }
+.book-status--reading { --status-color: #a8650f; } 
+.book-status--done    { --status-color: #4a6b3a; }
+
+.book-cover {
+  aspect-ratio: 2 / 3;
+  background: #d9c8a9;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  object-fit: cover;
+  width: 100%;
+}
+.layout p {
+  max-width: 65ch;
+}
+nav a {
+  color: #faf6ee;
+}
+
+header button:focus-visible {
+  outline-color: #faf6ee;
+}
