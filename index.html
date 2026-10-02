@@ -19,15 +19,23 @@
         <section>
           <h2>Додати книгу</h2>
 
-          <form>
+          <form id="book-form">
             <label for="title">Назва книги:</label>
-            <input type="text" id="title" />
+            <input type="text" id="title" name="title" required />
 
             <label for="author">Автор:</label>
-            <input type="text" id="author" />
+              <input type="text" id="author" name="author" required pattern="[^0-9]+" />
 
-            <label for="year">Рік видання:</label>
-            <input type="number" id="year" />
+
+            <label for="pages">Кількість сторінок:</label>
+            <input type="number" id="pages" name="pages" required min="1" /> 
+
+            <label for="status">Статус:</label> 
+            <select id="status" name="status">
+              <option value="reading">Читаю</option>
+              <option value="done">Прочитано</option>
+            </select>
+
 
             <button type="submit">Додати книгу</button>
           </form>

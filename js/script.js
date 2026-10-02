@@ -27,33 +27,109 @@ for (let i = 0; i < books.length; i++) {//цикл for, який проходи�
 
 const pagesPerDay = (pages, days) => Math.round(pages / days);//функція, яка приймає два параметри: pages (кількість сторінок) і days (кількість днів). Вона обчислює середню кількість сторінок на день, ділячи pages на days і округлюючи результат до найближчого цілого числа за допомогою Math.round().
 
-
+const finishedCountEl = document.querySelector('#finished-count');  
+const readingCountEl = document.querySelector('#reading-count');     
 const booksCount = document.querySelector('#books-count'); 
+
 function renderBooks(booksArray) {
   listContainer.innerHTML = '';
 
-  for (const book of booksArray) {
-  const article = document.createElement('article');   
+  let finishedTotal = 0;
+
+  for (let i = 0; i < booksArray.length; i++) {           
+    const book = booksArray[i];                            
+
+    const article = document.createElement('article');
     const title = document.createElement('h3');
     const author = document.createElement('p');
 
-    title.textContent = book.title;                     
-    author.textContent = `Автор: ${book.author}`;        
+    const bookStatus = document.createElement('select');       // вибір статусу в картці
+    const readingOption = document.createElement('option');    
+    const doneOption = document.createElement('option');       
+    readingOption.value = 'reading';                           // ті самі значення, що й у формі
+    readingOption.textContent = 'Читаю';
+    doneOption.value = 'done';
+    doneOption.textContent = 'Прочитано';
+    doneOption.selected = book.finished;                       // true вибирає «Прочитано»
+    bookStatus.dataset.index = i;                              //за цим номером handleStatusChange знайде книгу в масиві
+    bookStatus.append(readingOption, doneOption);              //пункти вкладено в select
 
-   article.dataset.pages = book.pages;//додає атрибут data-pages до елемента article, який містить кількість сторінок книги (book.pages)       
-
-    if (!book.finished) {                        
-      article.classList.add('unread');        //додає клас unread до елемента article, якщо книга не прочитана (finished === false)    
+    if (book.finished) {
+      finishedTotal++;
     }
 
-    article.append(title, author);
+    title.textContent = book.title;
+    author.textContent = `Автор: ${book.author}`;
 
-     listContainer.append(article);//додає елемент article до контейнера listContainer, який містить список книг
+    article.dataset.pages = book.pages;
+
+    if (!book.finished) {
+      article.classList.add('unread');
+    }
+
+    article.append(title, author, bookStatus);             // article.append(title, author)
+
+    listContainer.append(article);
   }
 
-   booksCount.textContent = `Всього книг: ${booksArray.length}`;
+  booksCount.textContent = `Всього книг: ${booksArray.length}`;
+  finishedCountEl.textContent = `Прочитано: ${finishedTotal}`;
+  readingCountEl.textContent = `У процесі: ${booksArray.length - finishedTotal}`;
 }
 
 renderBooks(books);
 
-console.log(`Середня кількість сторінок на день: ${pagesPerDay(sumOfPages, 30)}`);//виводить середню кількість сторінок на день, яку потрібно прочитати, щоб закінчити всі непрочитані книги за 30 днів. Використовує функцію pagesPerDay для обчислення цього значення.
+listContainer.addEventListener('change', handleStatusChange);   
+function handleStatusChange(event) {
+  if (!event.target.matches('select')) {                        // ігноруємо події не від select
+    return;
+  }
+
+  const index = Number(event.target.dataset.index);             // "2" рядком стає числом 2
+  books[index].finished = event.target.value === 'done';        //те саме правило, що у handleSubmit
+
+  renderBooks(books);                                           // оновлює картки, клас unread і лічильники
+}
+
+console.log(`Середня кількість сторінок на день: ${pagesPerDay(sumOfPages, 30)}`);//виводить середню кількість сторінок на день, яку потрібно прочитати, щоб закінчити всі непрочитані книги за 30 днів.
+
+const form = document.querySelector('#book-form');
+const titleInput = document.querySelector('#title');     
+const authorInput = document.querySelector('#author');     
+const pagesInput = document.querySelector('#pages');      
+const statusSelect = document.querySelector('#status');    
+//встановлюємо константи для елементів форми, які відповідають за введення даних про книгу
+
+
+authorInput.addEventListener('input', handleAuthorInput);   
+function handleAuthorInput() {                            
+  if (authorInput.validity.patternMismatch) {               
+    authorInput.setCustomValidity("Ім'я автора не повинно містити цифр");  
+  } else {
+    authorInput.setCustomValidity('');                      
+  }
+}
+
+form.addEventListener('submit', handleSubmit);
+function handleSubmit(event){
+event.preventDefault();
+
+ const title = titleInput.value.trim();     //Trim видаляє пробіли на початку і в кінці
+  const author = authorInput.value.trim();  //Trim видаляє пробіли на початку і в кінці
+  const pages = Number(pagesInput.value);    //число 
+  const status = statusSelect.value;    
+
+    const newBook = {                       // нове: об'єкт з тими самими ключами, що й у books
+    title: title,                         // ключ title, значення зі змінної title
+    author: author,
+    pages: pages,
+    finished: status === 'done'           // нове: порівняння саме повертає true або false
+  };
+
+  books.push(newBook);     
+
+  renderBooks(books); //оновлює список книг на сторінці, викликаючи функцію renderBooks з оновленим масивом books
+  console.log(title, author, pages, status); //Заглушка
+  console.log(typeof pages);         
+  form.reset(); //очищає форму після відправки, викликаючи метод reset() на елементі форми form
+}
