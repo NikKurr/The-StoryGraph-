@@ -42,6 +42,10 @@
         </section>
         <section>
           <h2>Мої книги</h2>
+          <button id="refresh" type="button">Оновити</button>
+          <p id="message"></p>
+          <p id="loading" hidden>Завантаження…</p>
+
           <div class="cards" id="books-list">
             <article>
               <div class="book-cover"></div>
@@ -61,12 +65,12 @@
         </section>
       </main>
 
-        <aside>
+      <aside>
         <h2>Статистика читання</h2>
-        <p id="books-count">Всього книг: 2</p>  
-        <p>Прочитано: 2</p>
-        <p>У процесі: 0</p>
-        </aside>
+        <p id="books-count">Всього книг: 2</p>
+        <p id="finished-count">Прочитано: 2</p>
+        <p id="reading-count">У процесі: 0</p>
+      </aside>
     </div>
 
     <footer>

@@ -133,3 +133,55 @@ event.preventDefault();
   console.log(typeof pages);         
   form.reset(); //очищає форму після відправки, викликаючи метод reset() на елементі форми form
 }
+
+const API_URL = 'https://openlibrary.org/search.json';
+let lastQuery = 'Маленький Принц'; 
+
+async function loadBooks(query) {
+    lastQuery = query; 
+  showLoading(true);                // показати «Завантаження…»
+  try {
+    const response = await fetch(`${API_URL}?q=${encodeURIComponent(query)}`);
+
+    if (!response.ok) {
+      throw new Error(`Сервер відповів кодом ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.docs.length === 0) {
+      showMessage('За запитом нічого не знайдено');
+      renderBooks([]);
+      return;
+    }
+
+    const found = data.docs.slice(0, 10).map(doc => ({
+      title: doc.title,
+      author: doc.author_name ? doc.author_name.join(', ') : 'Невідомий автор',
+      pages: doc.first_publish_year ?? '—',
+      finished: false
+    }));
+
+    showMessage('');
+    renderBooks(found);
+  } catch (error) {
+    showMessage('Не вдалося завантажити дані. Спробуйте пізніше.');
+    console.error(error);
+  } finally {
+    showLoading(false);             // сховати в будь-якому разі
+  }
+}
+
+function showMessage(text) {
+  document.querySelector('#message').textContent = text;
+}
+
+function showLoading(isLoading) {
+  document.querySelector('#loading').hidden = !isLoading;
+}
+
+document.querySelector('#refresh').addEventListener('click', () => {
+  loadBooks(lastQuery);
+});
+
+loadBooks(lastQuery);
